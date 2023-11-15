@@ -1,0 +1,147 @@
+# Vitronic Traslation.
+# Copyright (c) 2019  Díaz Devera Víctor  aka  (Máster Vitronic)
+# This file is distributed under the same license as the Vitronic package.
+# Máster Vitronic <vitronic@gmail.com>, 2019.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Vitronic 1.0\n"
+"Report-Msgid-Bugs-To: <vitronic2@gmail.com>\n"
+"POT-Creation-Date: 2019-03-27 22:40+0400\n"
+"PO-Revision-Date: 2019-03-27 22:40+0400\n"
+"Last-Translator: Diaz Devera Victor <vitronic2@gmail.com>\n"
+"Language-Team: es_ES.UTF-8 <vitronic@gmail.com>\n"
+"Language: es_ES\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+msgid "translated %s with parameters"
+msgstr "traducido %s con parametros"
+
+msgid "Some information of this account has been updated"
+msgstr "Parte de la información de esta cuenta ha sido actualizada"
+
+msgid "Hello"
+msgstr "Hola"
+
+msgid "Invalid name from module"
+msgstr "Nombre de modulo invalido"
+
+msgid "User %s authenticated"
+msgstr "Usuario %s autenticado"
+
+#datetime
+msgid "Sunday"
+msgstr "Domingo"
+
+msgid "Monday"
+msgstr "Lunes"
+
+msgid "Tuesday"
+msgstr "Martes"
+
+msgid "Wednesday"
+msgstr "Miercoles"
+
+msgid "Thursday"
+msgstr "Jueves"
+
+msgid "Friday"
+msgstr "Viernes"
+
+msgid "Saturday"
+msgstr "Sabado"
+
+msgid "Sun"
+msgstr "Dom"
+
+msgid "Mon"
+msgstr "Lun"
+
+msgid "Tue"
+msgstr "Mar"
+
+msgid "Wed"
+msgstr "Mie"
+
+msgid "Thu"
+msgstr "Jue"
+
+msgid "Fri"
+msgstr "Vie"
+
+msgid "Sat"
+msgstr "Sab"
+
+msgid "January"
+msgstr "Enero"
+
+msgid "February"
+msgstr "Febrero"
+
+msgid "March"
+msgstr "Marzo"
+
+msgid "April"
+msgstr "Abril"
+
+msgid "May"
+msgstr "Mayo"
+
+msgid "June"
+msgstr "Junio"
+
+msgid "July"
+msgstr "Julio"
+
+msgid "August"
+msgstr "Agosto"
+
+msgid "September"
+msgstr "Septiembre"
+
+msgid "October"
+msgstr "Octubre"
+
+msgid "November"
+msgstr "Noviembre"
+
+msgid "December"
+msgstr "Diciembre"
+
+msgid "Jan"
+msgstr "Ene"
+
+msgid "Feb"
+msgstr "Feb"
+
+msgid "Mar"
+msgstr "Mar"
+
+msgid "Apr"
+msgstr "Abr"
+
+#msgid "May"
+#msgstr "May"
+
+msgid "Jun"
+msgstr "Jun"
+
+msgid "Jul"
+msgstr "Jul"
+
+msgid "Aug"
+msgstr "Ago"
+
+msgid "Sep"
+msgstr "Sep"
+
+msgid "Oct"
+msgstr "Oct"
+
+msgid "Nov"
+msgstr "Nov"
+
+msgid "Dec"
+msgstr "Dic"

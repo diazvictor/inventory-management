@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+	{(/public/common/metadata.html)}
+	{% if ( type(css) == 'table' ) then %}
+	{% for _, v in ipairs(css) do %}
+	<link rel="stylesheet" href="{*v*}">
+	{% end %}
+	{% else %}
+	<link rel="stylesheet" href="{*css*}">
+	{% end %}
+</head>
+<body>
+	{*view*}
+</body>
+</html>

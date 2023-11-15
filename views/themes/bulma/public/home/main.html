@@ -1,0 +1,8 @@
+<h1>Users</h1>
+	<ul>
+	{% for _, user in pairs(users) do %}
+		<li><a href="/home/edit/{{ user.id_user }}">{{ user.name }}</a></li>
+	{% end %}
+	</ul>
+
+	<a href="/home/new">Nuevo usuario</a>

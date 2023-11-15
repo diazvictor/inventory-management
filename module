@@ -1,0 +1,272 @@
+#!/usr/bin/env lua
+
+--[[
+          _                     _     _
+         | |   _   _  __ _  ___| |__ (_)
+         | |  | | | |/ _` |/ __| '_ \| |
+         | |__| |_| | (_| | (__| | | | |
+         |_____\__,_|\__,_|\___|_| |_|_|
+Copyright (c) 2020  Díaz  Víctor  aka  (Máster Vitronic)
+<vitronic2@gmail.com>   <mastervitronic@vitronic.com.ve>
+]]--
+
+------------------------------------------------------------------------
+-- Module, añade o remueve modulos del proyecto Luachi
+-- Este programa se encarga de añadir o remover modulos del proyecto
+-- @script module
+-- @author Máster Vitronic
+-- @license GPL
+-- @copyright 2020  Díaz  Víctor  aka  (Máster Vitronic)
+------------------------------------------------------------------------
+
+package.path	 = package.path .. ";./libraries/?.lua;./vendor/?.lua";
+COOKIE,GET,ENV,HASERL,FORM = {},{},{},{},{} -- Hack for script mode
+ENV.DOCUMENT_ROOT= ('%s/public/'):format(os.getenv('PWD'))
+require('libraries.luachi')
+
+--Muestro la ayuda y salgo
+function help_exit()
+	print(("Usage: %s add|del <module> public|private \n"):format(arg[0]));
+	os.exit()
+end
+
+--Si hay menos de tres argumentos muestro la ayuda
+if ( #arg <= 2  ) then
+	help_exit()
+end
+
+--helpers
+local _cmd,_mod,_scope 	= arg[1],arg[2],arg[3]
+
+--Validaciones
+local cmd_valid  	= (_cmd ~= "add" and _cmd ~= "del")
+local type_valid 	= (_scope ~= "public" and _scope ~= "private")
+
+---Verifico que el primer y ultimo argumento son validos
+if ( cmd_valid or type_valid ) then
+	help_exit()
+end
+
+---Validacion del nombre del modulo
+if ( _mod:gsub("/",''):find("%A") ) then
+	print(gettext("Invalid name from module"))
+	help_exit()
+end
+
+---Copia segura
+function safe_copy(src, dst, force)
+	--Verifico que el fuente exista
+	if ( files:exists(src) == false ) then
+		return false, gettext("Template src not exists")
+	end
+
+	--Solo procedo si la bandera force esta presente
+	if not force then
+		--Verifico que el destino no exista
+		if (io.open(dst, "rb") ~= nil) then
+			return false, gettext("file alredy exists")
+		end
+	end
+
+	--Leo el archivo fuente
+	local file_src = io.open(src, "r")
+	local content = file_src:read("*all")
+	file_src:close()
+
+	--Escribo el archivo de salida
+	local file_dst = io.open(dst, "w")
+	file_dst:write(content)
+	file_dst:close()
+
+	return true
+end
+
+---Reescribe los archivos del modulo ajustandolo al nombre del modulo
+function set_module(fd, _mod, _scope)
+	--Read the file
+	local f = io.open(fd, "r")
+	local content = f:read("*all")
+	f:close()
+	--Edit the string
+	content = (content):gsub("MODULE", _mod):gsub("SCOPE", _scope)
+	--Write it out
+	local f = io.open(fd, "w")
+	f:write(content)
+	f:close()
+end
+
+---Crea un archivo vacio
+function touch(fd)
+	local newf = io.open(fd, "w")
+	newf:write('')
+	newf:close()
+	return true
+end
+
+---Escribe el archivo de configuracion
+function write_config(config)
+	--Escribo el archivo de configuracion
+	local fd = io.open(('%s/../modules.json'):format(root), "w")
+	fd:write(config)
+	fd:close()
+	return true
+end
+
+---Retorna una tabla con los modulos de Luachi
+function get_modules()
+	local fd = io.open(('%s/../modules.json'):format(root), "r")
+	local modules = fd:read("*all")
+	fd:close()
+	return json.decode(modules)
+end
+
+---la variable que almacena los modulos registrados en Luachi
+local _modules = get_modules()
+
+---Retorna el nombre y el path del modulo
+function mod_path_name()
+	local _tmod = util:split(_mod,'/')
+	local _name  = _tmod[#_tmod]
+	table.remove(_tmod,(#_tmod))
+	result =  { name = _name, path = _tmod }
+	return result
+end
+
+---Retorna el path de las vistas
+function path_views(name,path)
+	local views   = {}
+	views['css']  = ("%s/css/themes/%s/%s/%s/%s/"):format(root,conf.theme.theme,_scope,path,name)
+	views['js']   = ("%s/js/themes/%s/%s/%s/%s/"):format(root,conf.theme.theme,_scope,path,name)
+	views['html'] = ("%s/../views/themes/%s/%s/%s/%s/"):format(root,conf.theme.theme,_scope,path,name)
+	return views
+end
+
+---Crea y configura el modelo y el controlador
+function create_mvc(value)
+	local dir_tpl= ('%s/../extra/templates/'):format(root)
+	local _mod  	= mod_path_name()
+	local dest_dir 	= ('%s/../%s/%s/'):format(root,value,table.concat(_mod['path'], "/"))
+	local _target
+	if ( value == 'controllers' ) then
+		_target = 'controller.lua'
+	else
+		_target = 'model.lua'
+	end
+	local src  	= ('%s%s/%s'):format(dir_tpl,value,_target)
+	local dest 	= ('%s%s.lua'):format(dest_dir,_mod['name'])
+	os.execute("mkdir -p " .. dest_dir)
+	local copy, err = safe_copy(src, dest)
+	if not err then
+		set_module(dest, _mod['name'], _scope)
+	else
+		return false, gettext('The module could not be created')
+	end
+
+	return true
+end
+
+---Añade un modulo al proyecto
+function save_module(_mod)
+	---Verifica si existe este modulo registrado
+	for index, value in pairs(_modules[_scope]) do
+		if (value == _mod) then
+			return false, gettext('Module alredy exists')
+		end
+	end
+
+	---Creo el modelo y el controlador
+	_modules[_scope][(#_modules[_scope]+1)] = _mod
+	local new_config = json.encode(_modules)
+	for _,value in ipairs({'controllers','models'}) do
+		local _,err = create_mvc(value)
+		if (err) then return false, err end
+	end
+
+	---Creo los archivos y directorios asociados a la vista
+	local _mod  = mod_path_name()
+	local views = path_views(_mod['name'],table.concat(_mod['path'], "/"))
+	for ext,dir in pairs(views) do
+		os.execute("mkdir -p " .. dir)
+		touch( ('%s%s.%s'):format(dir,_mod['name'],ext) )
+	end
+
+	-- Escribo el archivo de configuracion
+	if (write_config(new_config)) then
+		return true
+	end
+end
+
+---Remueve un modulo del proyecto
+function remove_module(_mod, secure)
+	local result = false
+	for index, value in pairs(_modules[_scope]) do
+		if value == _mod then
+			result = true
+			table.remove(_modules[_scope],index)
+			break
+		end
+	end
+
+	if(result)then
+		---Ahora borro los archivos asociados
+		local _mod = mod_path_name()
+		local mvc  = {}
+		mvc[1]     = ('%s/../controllers/%s/'):format(root,table.concat(_mod['path'], "/"),_mod['name'])
+		mvc[2]     = ('%s/../models/%s/'):format(root,table.concat(_mod['path'], "/"),_mod['name'])
+		for _,dir in ipairs(mvc) do
+			os.remove(('%s%s.lua'):format(dir,_mod['name']))
+		end
+		local views = path_views(_mod['name'],table.concat(_mod['path'],"/"))
+		for ext,dir in pairs(views) do
+			os.remove(('%s%s.%s'):format(dir,_mod['name'],ext))
+		end
+		local new_config = json.encode(_modules)
+		-- Escribo el archivo de configuracion
+		if (write_config(new_config)) then
+			return true
+		end
+	else
+		return false, gettext('Module not found')
+	end
+end
+
+---Verifica una accion preguntandole al usuario
+function verify(firt)
+	if firt then
+		print(gettext('Are you sure you want to delete the module?'))
+	end
+	local input  = io.read()
+	if ( tostring(input) == 'YES' ) then
+		return true
+	end
+	if ( tostring(input) == 'NOT' ) then
+		print(gettext('Aborting erasure'))
+		return false
+	end
+	print(gettext('please confirm with YES, cancel with NOT'))
+	return false, del()
+end
+
+---Eliminar!
+function del(firt)
+	if( verify(firt) == true ) then
+		local ok, err = remove_module(_mod)
+		if ( not ok ) then
+			print(err)
+		else
+			print( gettext('Module successfully removed') )
+		end
+	end
+end
+
+---Proceder segun el primer argumento
+if ( _cmd == 'add') then
+	local ok, err = save_module(_mod)
+	if ( not ok ) then
+		print(err)
+	else
+		print( gettext('Module successfully created') )
+	end
+elseif ( _cmd == 'del') then
+	del(true)
+end
