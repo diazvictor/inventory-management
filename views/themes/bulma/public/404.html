@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+	<meta charset="utf-8">
+	<title>{{ title }}</title>
+	<meta name="description" content="{{ description }}">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	{% if ( type(css) == 'table' ) then %}
+	{% for _, v in ipairs(css) do %}
+	<link rel="stylesheet" href="{*v*}">
+	{% end %}
+	{% end %}
+</head>
+<body class="cover">
+	<div class="hero is-fullheight">
+		<div class="hero-body mx-auto">
+			<div class="content">
+				<h4 class="has-text-light has-text-centered my-4">
+					· ERROR ·
+				</h4>
+				<h1 class="has-text-light has-text-centered my-4">{404}</h1>
+				<div class="divider my-4"></div>
+				<h5 class="has-text-light has-text-centered">Page Not Found</h5>
+				<p class="has-text-light has-text-centered">The requested resource does not exist</p>
+				<a class="has-text-centered has-text-light" href="/">Go home</a>
+			</div>
+		</div>
+	</div>
+</body>
+</html>
