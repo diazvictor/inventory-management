@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+	<meta charset="utf-8">
+	<title>{{ title }}</title>
+	<meta name="description" content="{{ description }}">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	{% if ( type(css) == 'table' ) then %}
+	{% for _, v in ipairs(css) do %}
+	<link rel="stylesheet" href="{*v*}">
+	{% end %}
+	{% end %}
+</head>
+<body class="cover">
+	<div class="hero is-fullheight">
+		<div class="hero-body">
+			<div class="container">
+				<div class="column is-half is-flex is-flex-direction-column is-justify-content-center is-align-items-center mx-auto">
+					<span class="icon">
+						<i class="fas fa-boxes has-text-light"></i>
+					</span>
+
+					<div class="box">
+						<form method="post">
+							<div class="field">
+								<label for="username">Username</label>
+								<div class="control">
+									<input id="username" class="input" type="text" name="username" value="{{ username }}" placeholder="Username">
+								</div>
+							</div>
+
+							<div class="field">
+								<label for="password">Password</label>
+								<div class="control">
+									<input id="password" class="input" type="password" name="password" placeholder="Password">
+									<a href="javascript:void(0);" class="is-size-7">Forget password?</a>
+								</div>
+							</div>
+
+							<div class="field">
+								<div class="control">
+									<label class="checkbox">
+										<input name="session_persistent" type="checkbox">
+										Remember ?
+									</label>
+								</div>
+							</div>
+
+							<div class="field">
+								<input type="hidden" name="logIn" value="true">
+								<button class="button is-link is-fullwidth" type="submit">Log In</button>
+							</div>
+
+							{% for _, msg in ipairs(messages) do %}
+							<div class="message mb-3">
+								<div class="message-body">
+									{{msg.message}}
+								</div>
+							</div>
+							{% end %}
+
+							<div class="has-text-centered">
+								<p class="is-size-7">
+									Don't have an account? <a href="javascript:void(0);">Sign up</a>
+								</p>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<footer class="py-3">
+			<p class="has-text-centered has-text-light">© 2023 <a class="has-text-light" href="https://diazvictor.github.io/">diazvictor</a></p>
+		</footer>
+	</div>
+</body>
+</html>

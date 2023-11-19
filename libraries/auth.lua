@@ -111,8 +111,8 @@ function auth:logIn(user,pass)
 	db:open()
 	self.sql=[[select id_user,password as pass, fullname, admin
 			from users
-		  where username=%s and status=%s]]
-	local result, err = db:get_rows(self.sql,{user,'t'})
+		  where username=%s and status=true]]
+	local result, err = db:get_rows(self.sql,user)
 	db:close()
 	if ( not result ) then
 		return false, err
@@ -129,19 +129,19 @@ end
 
 
 ------------------------------------------------------------------------
---- Retorna true si es admin 
+--- Retorna true si es admin
 -- @param id_user el id_del usuario
 -- @return boolean true en caso de admin, false en caso contrario
 ------------------------------------------------------------------------
 function auth:isAdmin(id_user)
 	db:open()
 	self.sql=[[select admin from users where id_user=%d]]
-	local result, err = db:get_rows(self.sql,id_user)
+	local admin, err = db:get_var(self.sql,id_user)
 	db:close()
-	if ( not result ) then
+	if ( not admin ) then
 		return false, err
 	end
-	return (result[1] and util:is_true(result[1]['admin']))
+	return util:is_true(admin)
 end
 
 ------------------------------------------------------------------------
