@@ -1,5 +1,10 @@
+*.css
+*.min.js
 *.db
 *.db-shm
 *.db-wal
 *.mo
 data/*
+node_modules/*
+yarn-error.log
+yarn.lock
