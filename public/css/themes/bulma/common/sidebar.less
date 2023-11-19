@@ -1,0 +1,243 @@
+/**!
+ * @package   Inventory Management
+ * @filename  common.less
+ * @version   1.0
+ * @author    Díaz Urbaneja Víctor Eduardo Diex <diazvictor@tutamail.com>
+ * @date      19.11.2023 01:07:19 -04
+ */
+
+@txt-light: hsl(0, 0%, 96%);
+
+.sidebar {
+	grid-area: sidebar;
+
+	display: none;
+    position: relative;
+    top: 0;
+    left: 0;
+    z-index: 40;
+    height: 100vh;
+    padding: 0;
+    box-shadow: none;
+    background: #2e323a;
+
+    &.is-expanded {
+        width: 14rem;
+    }
+
+    .title {
+		padding: 0 0.75rem;
+		margin-top: 0.75rem;
+		margin-bottom: 1.75rem;
+		color: @txt-light;
+	}
+
+	.menu {
+		&-label {
+			padding: 0 .75rem;
+			margin-top: .75rem;
+			margin-bottom: .75rem
+		}
+
+		&-list {
+			line-height: 1.25;
+
+			li {
+				ul {
+					display: none;
+					border-left: 0;
+					background-color: #282c33;
+					padding-left: 0;
+					margin: 0 0 .75rem;
+
+					li {
+						a {
+							padding: .75rem 0 .75rem .75rem;
+							font-size: .95rem;
+
+							&.has-icon {
+								padding-left: 0
+							}
+
+							&.is-active {
+								&:not(:hover) {
+									background: rgba(0, 0, 0, 0)
+								}
+							}
+						}
+					}
+				}
+			}
+
+			a {
+				border-radius: 0;
+				color: #727c8f;
+				display: block;
+				padding: .5rem 0;
+
+				&.has-dropdown-icon {
+					position: relative;
+					padding-right: 3rem;
+
+					.dropdown-icon {
+						position: absolute;
+						top: .5rem;
+						right: 0
+					}
+				}
+
+				&:hover {
+					background-color: #262930;
+					color: @txt-light
+				}
+
+				&.is-active {
+					background-color: #282c33;
+					color: @txt-light
+				}
+			}
+		}
+	}
+}
+
+@media screen and (min-width: 1024px) {
+    html {
+		&.has-sidebar-left.has-sidebar-expanded nav.navbar,
+		&.has-sidebar-left.has-sidebar-expanded body {
+			// padding-left: 14rem
+		}
+
+		&.has-sidebar-left {
+			nav.navbar, body {
+				transition: padding-left 250ms ease-in-out 50ms
+			}
+
+			.sidebar {
+				&.is-placed-left {
+					display: block;
+				}
+
+				&.is-expanded {
+					width: 14rem;
+
+					.menu-list {
+						.icon {
+							width: 3rem;
+							&.has-update-mark {
+								&:after {
+									right: .65rem
+								}
+							}
+						}
+
+						span {
+							&.menu-item-label {
+								display: inline-block
+							}
+						}
+					}
+
+					li {
+						&.is-active {
+							ul {
+								display: block
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+}
+
+@media screen and (max-width: 1023px) {
+	#app,
+    nav.navbar {
+        transition: margin-left 250ms ease-in-out 50ms
+    }
+
+	html {
+		&.has-sidebar-left {
+			.sidebar {
+				transition: left 250ms ease-in-out 50ms;
+
+				&.is-placed-left {
+					display: block;
+				}
+			}
+		}
+
+		&.has-sidebar-mobile-transition {
+			body {
+				overflow-x: hidden
+			}
+
+			body, #app, nav.navbar {
+				width: 100vw;
+				// left: -14rem;
+			}
+
+			#app {
+				height: 100vh;
+				grid-template-areas:
+					"navbar navbar navbar" 
+					"main   main   main"
+					"footer footer footer"
+				;
+			}
+
+			.sidebar {
+				width: 14rem;
+				position: fixed;
+				display: block;
+				left: -15rem;
+
+				.menu-list {
+					a {
+						.icon {
+							width: 3rem;
+
+							&.has-update-mark {
+								&:after {
+									right: .65rem
+								}
+							}
+						}
+
+						span {
+							&.menu-item-label {
+								display: inline-block
+							}
+						}
+					}
+
+					li {
+						&.is-active {
+							ul {
+								display: block
+							}
+						}
+					}
+				}
+			}
+		}
+
+		&.has-sidebar-mobile-expanded {
+			#app {
+				grid-template-areas:
+					"sidebar navbar navbar" 
+					"sidebar main   main  " 
+					"sidebar footer footer"
+				;
+			}
+
+			#app {
+				margin-left: 14rem
+			}
+
+			.sidebar {
+				left: 0
+			}
+		}
+	}
+}

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="es" class="has-sidebar-left has-sidebar-mobile-transition has-navbar-fixed-top has-sidebar-expanded">
+<head>
+	{(/private/common/metadata.html)}
+	{% if ( type(css) == 'table' ) then %}
+	{% for _, v in ipairs(css) do %}
+	<link rel="stylesheet" href="{*v*}">
+	{% end %}
+	{% else %}
+	<link rel="stylesheet" href="{*css*}">
+	{% end %}
+</head>
+<body>
+	<div id="app">
+		{(/private/common/navbar.html)}
+		{(/private/common/sidebar.html)}
+		<main>
+			<section class="section is-main-section">
+				{*view*}
+			</section>
+		</main>
+		{(/private/common/footer.html)}
+	</div>
+	{% if ( type(js) == 'table' ) then %}
+	{% for _, v in ipairs(js) do %}
+	<script type="text/javascript" src="{*v*}"></script>
+	{% end %}
+	{% end %}
+</body>
+</html>

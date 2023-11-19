@@ -1,0 +1,43 @@
+<nav id="navbar-main" class="navbar is-fixed-top">
+    <div class="navbar-brand">
+        <a class="navbar-item is-hidden-desktop ">
+            <span class="icon"><i class="fas fa-chevron-right"></i></span>
+        </a>
+<!--
+        <div class="navbar-item has-control">
+            <div class="control"><input placeholder="Search everywhere..." class="input"></div>
+        </div>
+-->
+    </div>
+
+    <div class="navbar-brand is-right">
+		<a title="Notifications" class="navbar-item is-hidden-desktop">
+			<span class="icon">
+				<i class="fas fa-bell"></i>
+			</span>
+		</a>
+        <a class="navbar-item is-hidden-desktop" data-target="navbar-menu">
+            <span class="icon">
+				<i class="fas fa-bars"></i>
+			</span>
+        </a>
+    </div>
+
+    <div class="navbar-menu fadeIn animated faster" id="navbar-menu">
+        <div class="navbar-end">
+            <a title="Notifications" class="navbar-item is-desktop-icon-only">
+                <span class="icon">
+					<i class="fas fa-bell"></i>
+				</span>
+                <span>Notifications</span>
+            </a>
+
+            <a href="/logout" title="Log out" class="navbar-item is-desktop-icon-only">
+                <span class="icon">
+					<i class="fas fa-right-to-bracket"></i>
+				</span>
+                <span>Log out</span>
+            </a>
+        </div>
+    </div>
+</nav>

@@ -1,0 +1,60 @@
+/**!
+ * @package   Inventory Management
+ * @filename  navbar.less
+ * @version   1.0
+ * @author    Díaz Urbaneja Víctor Eduardo Diex <diazvictor@tutamail.com>
+ * @date      19.11.2023 01:50:18 -04
+ */
+
+html.has-navbar-fixed-top, body.has-navbar-fixed-top {
+	padding-top: 0;
+}
+
+.navbar {
+	grid-area: navbar;
+	border-bottom: 1px solid rgba(24, 28, 33, 0.08);
+
+	&.is-fixed-top {
+		position: relative;
+	}
+
+	.navbar-item {
+		padding-right: 1.125rem;
+		padding-left: 1.125rem;
+		border-left: 1px solid rgba(219,219,219,.25);
+
+		&.has-control {
+			padding-top: 0;
+			padding-bottom: 0;
+		}
+
+		.control {
+			.input {
+				color: #363636;
+				border: 0;
+				box-shadow: none;
+				background: rgba(0,0,0,0);
+			}
+		}
+	}
+}
+
+@media screen and (min-width: 1024px) {
+	.navbar {
+		.navbar-item {
+			&.is-desktop-icon-only {
+				span:not(.icon) {
+					display: none;
+				}
+			}
+		}
+	}
+}
+
+@media screen and (max-width: 1023px) {
+	.navbar {
+		display: flex;
+		justify-content: space-between;
+		padding-right: 0;
+	}
+}
