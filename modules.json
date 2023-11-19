@@ -1,1 +1,1 @@
-{"private":["\/dashboard"],"public":["\/logout","\/home"]}
+{"private":["\/dash"],"public":["\/logout","\/start"]}
