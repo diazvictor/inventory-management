@@ -7,20 +7,20 @@
 Copyright (c) 2020  Díaz  Víctor  aka  (Máster Vitronic)
 <vitronic2@gmail.com>   <mastervitronic@vitronic.com.ve>
 ]]--
-local MODULE	=	class('MODULE');
-local theme 	 = conf.theme.theme
+local MODULE =	class('MODULE');
+local theme = conf.theme.theme
 local parameters = router.parameters
 
 ---Configuracion general de la pagina
 function MODULE:set_page()
 	view:add_contents({
-		js   = {
-			("/js/themes/%s/common/common.min.js"):format(theme)
+		js = {
+			('/js/themes/%s/app.min.js'):format(theme)
 		},
-		css  = {
-			("/css/themes/%s/%s.min.css"):format(theme,theme),
-			("/css/themes/%s/common/common.css"):format(theme),
-			("/css/themes/%s/SCOPE/MODULE/MODULE.css"):format(theme)
+		css = {
+			('/css/themes/%s/app.min.css'):format(theme),
+			('/css/themes/%s/common/common.css'):format(theme,theme),
+			('/css/themes/%s/SCOPE/MODULE/main.css'):format(theme)
 		}
 	})
 
@@ -31,18 +31,18 @@ end
 
 ---Configuracion de la lista
 function MODULE:show(data)
-	view:add_content('title',"Ventas, Gestion de facturación")
+	view:add_content('title','Ventas, Gestion de facturación')
 	self:set_page()
 	view:add_contents({
 		MODULE = data or {},
 		js = {
-			("/js/themes/%s/SCOPE/MODULE/main.min.js"):format(theme)
+			('/js/themes/%s/SCOPE/MODULE/main.min.js'):format(theme)
 		}
 	})
 
-	local page   = template.new(
-		"/SCOPE/MODULE/main.html",
-		"/SCOPE/page.html"
+	local page = template.new(
+		'/SCOPE/MODULE/main.html',
+		'/SCOPE/page.html'
 	)
 	view:generate(page)
 	--common:print_r(parameters)
@@ -55,8 +55,8 @@ function MODULE:show_filter()
 		fullname = 'Vitronic'
 	})
 
-	local page   = template.new(
-		"/SCOPE/MODULE/filter.html"
+	local page = template.new(
+		'/SCOPE/MODULE/filter.html'
 	)
 	view:generate(page)
 end
@@ -64,41 +64,39 @@ end
 ---Confiuracion del formulario
 function MODULE:show_form(data)
 	if (not data) then
-		view:add_content('title',"Nueva Cuenta")
+		view:add_content('title','Nueva Cuenta')
 	else
-		view:add_content('title',"Edición de cuenta")
+		view:add_content('title','Edición de cuenta')
 	end
 	self:set_page()
 	view:add_contents({
-		MODULE  		= data or {},
-		js 	= {
-			("/js/themes/%s/SCOPE/MODULE/form.min.js"):format(theme)
+		MODULE = data or {},
+		js = {
+			('/js/themes/%s/SCOPE/MODULE/form.min.js'):format(theme)
 		}
 	})
 
-	local page   = template.new(
-		"/SCOPE/MODULE/form.html",
-		"/SCOPE/page.html"
+	local page = template.new(
+		'/SCOPE/MODULE/form.html',
+		'/SCOPE/page.html'
 	)
 	view:generate(page)
 end
 
 ---Confiuracion del formulario
 function MODULE:show_view(data)
-	view:add_content('title',"Vista de cuenta")
+	view:add_content('title','Vista de cuenta')
 	self:set_page()
 	view:add_contents({
-		MODULE  		= data or {},
-		js 	= {
-			(
-				"/js/themes/%s/SCOPE/MODULE/form.min.js"
-			):format(theme)
+		MODULE = data or {},
+		js = {
+			('/js/themes/%s/SCOPE/MODULE/form.min.js'):format(theme)
 		}
 	})
 
-	local page   = template.new(
-		"/SCOPE/MODULE/view.html",
-		"/SCOPE/page.html"
+	local page = template.new(
+		'/SCOPE/MODULE/view.html',
+		'/SCOPE/page.html'
 	)
 	view:generate(page)
 end
@@ -107,12 +105,12 @@ function MODULE:execute()
 	if (ENV.REQUEST_METHOD == 'POST') then
 		if (http:xmlhttprequest()) then
 			if ( FORM['search'] ) then
-				http:header("Content-type: application/json; charset=utf-8",200)
+				http:header('Content-type: application/json; charset=utf-8',200)
 				local result = {
 					items = model:search(FORM['search'])
 				}
 				print(json.encode(result))
-				return	
+				return
 			end
 		end
 

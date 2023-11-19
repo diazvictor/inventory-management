@@ -8,16 +8,15 @@ Copyright (c) 2020  Díaz  Víctor  aka  (Máster Vitronic)
 <vitronic2@gmail.com>   <mastervitronic@vitronic.com.ve>
 ]]--
 
-local MODULE	=	class('MODULE')
-local sql	    =	nil
-local data	    =	{}
-pagination	    =	require('libraries.pagination')
-local date 	    =	require('vendor.date')
-
+local MODULE =	class('MODULE')
+local sql =	nil
+local data = {}
+pagination = require('libraries.pagination')
+local date = require('vendor.date')
 
 function MODULE:get_MODULE()
 	db:open()
-	self.sql	= "select * from users"
+	self.sql	= 'select * from users'
 	self.data	= {}
 	local result	= db:get_results(self.sql)
 	db:close()
