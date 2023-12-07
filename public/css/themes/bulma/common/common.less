@@ -18,6 +18,16 @@ body {
 	line-height: 1.5;
 }
 
+.table th {
+	background-color: hsl(229, 53%, 53%);
+	color: hsl(0, 0%, 96%) !important;
+	//border-color: hsl(217, 71%, 45%);
+}
+
+.table td, .table th {
+	vertical-align: middle;
+}
+
 #app {
 	display: grid;
 	grid-template-areas:
@@ -46,4 +56,128 @@ section.section.is-main-section {
 
 main {
 	grid-area: main;
+
+	.bar {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		column-gap: 1rem;
+
+		@media screen and (max-width: 768px) {
+			& {
+				flex-wrap: wrap;
+				row-gap: 1.5rem;
+			}
+		}
+
+		@media screen and (max-width: 425px) {
+			& {
+				justify-content: center;
+			}
+		}
+
+		.start {
+			display: flex;
+			align-items: center;
+			column-gap: 10px;
+			order: 1;
+
+			p {
+				margin-bottom: 0;
+			}
+		}
+
+		.middle {
+			order: 2;
+
+			@media screen and (max-width: 768px) {
+				& {
+					order: 3;
+					flex-grow: 1;
+				}
+			}
+
+			.field {
+				@media screen and (min-width: 769px) {	
+					&:not(.has-addons) {
+						width: 357px;
+					}
+				}
+
+				&.has-addons {
+					.control {
+						&:nth-child(n+2) {
+							display: block
+						}
+					}
+				}
+
+				.control {
+					&:nth-child(n+2) {
+						display: none
+					}
+				}
+			}
+		}
+
+		.end {
+			order: 3;
+
+			.buttons {
+				display: flex;
+
+				.button {
+					@media screen and (max-width: 425px) {
+						& {
+							flex-grow: 1
+						}
+					}
+				}
+			}
+
+			@media screen and (max-width: 710px) {
+				& {
+					order: 2;
+				}
+			}
+
+			@media screen and (max-width: 425px) {
+				& {
+					width: 100%;
+				}
+			}
+		}
+	}
+}
+
+.pagination {
+	@media screen and (max-width: 768px) {
+		& {
+			flex-direction: row-reverse;
+			justify-content: space-between;
+			gap: 1rem;
+		}
+	}
+
+	@media screen and (max-width: 641px) {
+		& {
+			justify-content: center
+		}
+	}
+
+	&-list {
+		flex-grow: initial;
+	}
+
+	&-info {
+		order: 1;
+	}
+
+	&-previous {
+		order: 3
+	}
+
+	&-next {
+		order: 4
+	}
 }
