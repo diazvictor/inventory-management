@@ -36,7 +36,7 @@ function dash:show(data)
 	view:add_contents({
 		dash = data or {},
 		js = {
-			-- ('/js/themes/%s/private/dash/main.min.js'):format(theme)
+			('/js/themes/%s/private/dash/main.min.js'):format(theme)
 		}
 	})
 

@@ -121,7 +121,7 @@ module.exports = function(grunt) {
                         [
                             "factor-bundle", {
                                 outputs: [
-                                    // '<%=src_js%>/<%=theme%>/public/home/main.min.js',
+                                    '<%=src_js%>/<%=theme%>/private/dash/main.min.js',
                                 ]
                             }
                         ]
@@ -135,7 +135,7 @@ module.exports = function(grunt) {
                     }
                 },
                 src: [
-                    // '<%=src_js%>/<%=theme%>/public/home/main.src.js',
+                    '<%=src_js%>/<%=theme%>/private/dash/main.src.js',
                 ],
                 dest: '<%=src_js%>/<%=theme%>/app.min.js'
             },
@@ -153,7 +153,7 @@ module.exports = function(grunt) {
                         [
                             "factor-bundle", {
                                 outputs: [
-                                    // '<%=src_js%>/<%=theme%>/public/home/main.min.js',
+                                    '<%=src_js%>/<%=theme%>/private/dash/main.min.js',
                                 ]
                             }
                         ]
@@ -167,7 +167,7 @@ module.exports = function(grunt) {
                     }
                 },
                 src: [
-                    // '<%=src_js%>/<%=theme%>/public/home/main.src.js',
+                    '<%=src_js%>/<%=theme%>/private/dash/main.src.js',
                 ],
                 dest: '<%=src_js%>/<%=theme%>/app.min.js'
             },
