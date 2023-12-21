@@ -172,4 +172,35 @@ function auth:logOut()
 	return self:key('exit')
 end
 
+------------------------------------------------------------------------
+--- Este metodo establece un nuevo valor ser usado como CSRF
+------------------------------------------------------------------------
+function auth:setCsrf()
+	SESSION[self.KEY_CSRF or 'csrf'] = crypt.encrypt(
+		'sha256',
+		common:random_hash(64),
+		common:random_hash(64)
+	)
+	session:save()
+end
+
+------------------------------------------------------------------------
+--- Este metodo retorna el CSRF actual
+------------------------------------------------------------------------
+function auth:getCsrf()
+	return SESSION[self.KEY_CSRF or 'csrf']
+end
+
+------------------------------------------------------------------------
+--- Este metodo Valida/Verifica el CSRF
+------------------------------------------------------------------------
+function auth:csrfIsValid(csrf)
+	return crypt.check(self:getCsrf(),crypt.encrypt(
+		'sha256',
+		csrf,
+		common:random_hash(64)
+	))
+end
+
+
 return auth
