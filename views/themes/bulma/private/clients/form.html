@@ -1,0 +1,130 @@
+
+<nav class="breadcrumb" aria-label="breadcrumbs">
+	<ul>
+		<li><a>Inventory</a></li>
+		<li><a href="/catalogue">Clients</a></li>
+		<li class="is-active"><a>New</a></li>
+	</ul>
+</nav>
+
+<div class="box">
+	<div class="block">
+		{% if (clients and clients.fullname) then %}
+		<h1 class="title is-4">Edit Client</h1>
+		{% else %}
+		<h1 class="title is-4">New Client</h1>
+		{% end %}
+<!--
+		<h1 class="subtitle is-6">Add a new client</h1>
+-->
+	</div>
+
+	<div class="block"><div class="divider"></div></div>
+
+	<div class="block">
+		<form method="post">
+			<div class="columns">
+				<div class="column">
+					<div class="field">
+						<label class="label">Fullname</label>
+						<div class="control has-icons-left">
+							<input type="text" name="fullname" class="input" placeholder="Fullname">
+							<span class="icon is-small is-left">
+								<i class="fas fa-user"></i>
+							</span>
+						</div>
+					</div>
+				</div>
+
+				<div class="column">
+					<div class="field">
+						<label class="label">CI/RIF</label>
+						<div class="field has-addons">
+							<div class="control">
+								<div class="select">
+									<select>
+										<option value="C">Comuna</option>
+										<option value="CE">Cédula E</option>
+										<option value="CI" selected>Cédula</option>
+										<option value="G">Gobierno</option>
+										<option value="E">Extranjero</option>
+										<option value="J">Juridico</option>
+										<option value="P">Pasaporte</option>
+										<option value="V">Natural</option>
+									</select>
+								</div>
+							</div>
+
+							<div class="control has-icons-right is-expanded">
+								<input type="text" name="passport" class="input" placeholder="">
+
+								<span class="icon is-small is-right">
+									<i class="fas fa-id-card"></i>
+								</span>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="column">
+					<div class="field">
+						<label class="label">Email</label>
+						<div class="control has-icons-left">
+							<input type="email" name="email" class="input" placeholder="jhondoe@gmail.com">
+							<span class="icon is-small is-left">
+								<i class="fas fa-envelope"></i>
+							</span>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="columns">
+				<div class="column">
+					<div class="field">
+						<label class="label">Phone</label>
+						<div class="control has-icons-left">
+							<input type="tel" name="phone" class="input" placeholder="(0000)-00-00-000">
+							<span class="icon is-small is-left">
+								<i class="fas fa-phone"></i>
+							</span>
+						</div>
+					</div>
+				</div>
+
+				<div class="column">
+					<div class="field">
+						<label class="label">Address</label>
+						<div class="control has-icons-left">
+							<input type="text" name="address" class="input" placeholder="Los Guaritos III">
+							<span class="icon is-small is-left">
+								<i class="fas fa-map-location-dot"></i>
+							</span>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="columns">
+				<div class="column">
+					<div class="field">
+						<label class="label">Observation</label>
+						<div class="control">
+							<textarea class="textarea"></textarea>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="field is-grouped is-justify-content-space-between">
+				<div class="control">
+					<button type="button" class="button is-link">Submit</button>
+				</div>
+
+				<div class="control">
+					<a href="/clients" class="button is-link is-light">Cancel</a>
+				</div>
+			</div>
+		</form>
+	</div>
+</div>
