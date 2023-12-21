@@ -123,6 +123,7 @@ module.exports = function(grunt) {
                                 outputs: [
                                     '<%=src_js%>/<%=theme%>/private/dash/main.min.js',
                                     '<%=src_js%>/<%=theme%>/private/catalogue/main.min.js',
+                                    '<%=src_js%>/<%=theme%>/private/catalogue/form.min.js',
                                 ]
                             }
                         ]
@@ -138,6 +139,7 @@ module.exports = function(grunt) {
                 src: [
                     '<%=src_js%>/<%=theme%>/private/dash/main.src.js',
                     '<%=src_js%>/<%=theme%>/private/catalogue/main.src.js',
+                    '<%=src_js%>/<%=theme%>/private/catalogue/form.src.js',
                 ],
                 dest: '<%=src_js%>/<%=theme%>/app.min.js'
             },
@@ -157,6 +159,7 @@ module.exports = function(grunt) {
                                 outputs: [
                                     '<%=src_js%>/<%=theme%>/private/dash/main.min.js',
                                     '<%=src_js%>/<%=theme%>/private/catalogue/main.min.js',
+                                    '<%=src_js%>/<%=theme%>/private/catalogue/form.min.js',
                                 ]
                             }
                         ]
@@ -172,6 +175,7 @@ module.exports = function(grunt) {
                 src: [
                     '<%=src_js%>/<%=theme%>/private/dash/main.src.js',
                     '<%=src_js%>/<%=theme%>/private/catalogue/main.src.js',
+                    '<%=src_js%>/<%=theme%>/private/catalogue/form.src.js',
                 ],
                 dest: '<%=src_js%>/<%=theme%>/app.min.js'
             },

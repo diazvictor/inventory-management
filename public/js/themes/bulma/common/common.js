@@ -39,25 +39,12 @@ launch.sidebar.submenus = () => {
 	});
 };
 
-/* NavBar menu mobile toggle */
-// Array.from(document.getElementsByClassName('jb-navbar-menu-toggle')).forEach(el => {
-  // el.addEventListener('click', e => {
-    // const dropdownIcon = e.currentTarget
-        // .getElementsByClassName('icon')[0]
-        // .getElementsByClassName('mdi')[0]
-
-    // document.getElementById(e.currentTarget.getAttribute('data-target')).classList.toggle('is-active')
-    // dropdownIcon.classList.toggle('mdi-dots-vertical')
-    // dropdownIcon.classList.toggle('mdi-close')
-  // })
-// })
-
 const start = () => {
 	console.log('APP STARTING');
 
 	// const currentModule = document.querySelector('meta[name="module"]').getAttribute('content') || window.location.pathname;
-	const currentModule = window.location.pathname;
-	document.querySelector(`a[href='${currentModule}']`).classList.add('is-active');
+	const currentModule = window.location.pathname.split('/');
+	document.querySelector(`a[href='/${currentModule[1]}']`).classList.add('is-active');
 
 	launch.sidebar.toggle();
 	launch.sidebar.submenus();
