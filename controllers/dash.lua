@@ -139,7 +139,7 @@ function dash:execute()
 				local data = model:get_dash(parameters[2])
 				if ( not data ) then
 					---Tomo prestado el show del modulo 404
-					util:borrow('404'):show()
+					borrow:class('404'):show()
 					return
 				end
 				self:show_form(data)
@@ -150,7 +150,7 @@ function dash:execute()
 				local data = model:get_dash(parameters[2])
 				if ( not data ) then
 					---Tomo prestado el show del modulo 404
-					util:borrow('404'):show()
+					borrow:class('404'):show()
 					return
 				end
 				self:show_view(data)
@@ -161,7 +161,7 @@ function dash:execute()
 			return
 		else
 			--Si no es new o edit, tons muestro el 404
-			util:borrow('404'):show()
+			borrow:class('404'):show()
 			return
 		end
 	end

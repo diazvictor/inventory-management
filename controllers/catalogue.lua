@@ -140,7 +140,7 @@ function catalogue:execute()
 				local data = model:get_catalogue(parameters[2])
 				if ( not data ) then
 					--- Tomo prestado el show del modulo 404
-					util:borrow('404'):show()
+					borrow:class('404'):show()
 					return
 				end
 				self:show_form(data)
@@ -151,7 +151,7 @@ function catalogue:execute()
 			return
 		else
 			-- Si no es new o edit, muestro el 404
-			util:borrow('404'):show()
+			borrow:class('404'):show()
 			return
 		end
 	end

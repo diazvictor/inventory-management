@@ -7,22 +7,27 @@
 Copyright (c) 2020  Díaz  Víctor  aka  (Máster Vitronic)
 <vitronic2@gmail.com>   <mastervitronic@vitronic.com.ve>
 ]]--
-local main	=	class('main')
-local theme =   conf.theme.theme
 
-function main:show()
-	view:add_content('title',"Page not found")
+local page_not_found = class('page_not_found')
+local theme = conf.theme.theme
+
+function page_not_found:show()
+	view:add_content('title','Inventory | 404 - Page Not Found')
+	view:add_content('description','Luachi, un framework web para Lua')
 	view:add_contents({
-		css = {
-			("/css/themes/%s/%s.min.css"):format(theme,theme),
-			("/css/themes/%s/common/common.css"):format(theme),
-			("/css/themes/%s/public/404/404.css"):format(theme)
+		js = {
+			('/js/themes/%s/app.min.js'):format(theme),
+		},
+		css  = {
+			('/css/themes/%s/app.min.css'):format(theme,theme),
+			('/css/themes/%s/common/common.css'):format(theme),
+			('/css/themes/%s/public/404.css'):format(theme)
 		}
 	})
 	local page = template.new(
-		"/public/common/404.html"
+		'/public/404.html'
 	)
 	view:generate(page)
 end
 
-return main
+return page_not_found

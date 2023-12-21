@@ -129,18 +129,6 @@ function utils:logfile(msg)
 	fd:close()
 end
 
---- Toma prestado un metodo de un modelo
-function utils:borrow(_module)
-	file=files:exists(('%s/../models/%s.lua'):format(root,_module))
-	if not file then
-		http:header("Content-Type: text/plain",200)
-		io.stdout:write(tostring(("Can't borrow model '%s'.\n"):format(_module) ))
-		os.exit()
-	end
-	return require(('models.%s'):format(_module))
-end
-
-
 --function utils:fromBytes(t)
    --local bytearr = {}
    --for _, v in ipairs(t) do
@@ -159,13 +147,13 @@ end
 function utils:tprint (tbl, indent)
   if not indent then indent = 0 end
   local toprint = string.rep(" ", indent) .. "{\r\n"
-  indent = indent + 2 
+  indent = indent + 2
   for k, v in pairs(tbl) do
     toprint = toprint .. string.rep(" ", indent)
     if (type(k) == "number") then
       toprint = toprint .. "[" .. k .. "] = "
     elseif (type(k) == "string") then
-      toprint = toprint  .. k ..  "= "   
+      toprint = toprint  .. k ..  "= "
     end
     if (type(v) == "number") then
       toprint = toprint .. v .. ",\r\n"

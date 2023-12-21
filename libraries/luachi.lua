@@ -29,5 +29,6 @@ db		    = require("libraries.database.database");
 router		= require("libraries.router");
 session		= require("libraries.session");
 session     : update();
+borrow      = require("libraries.borrow");
 auth		= require("libraries.auth");
 view		= require("libraries.view");

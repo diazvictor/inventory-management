@@ -86,7 +86,7 @@ function MODULE:show_form(data)
 	view:generate(page)
 end
 
---- Confiuracion del formulario
+--- Configuracion de la vista
 function MODULE:show_view(data)
 	view:add_content('title','View')
 
@@ -144,7 +144,7 @@ function MODULE:execute()
 				local data = model:get_MODULE(parameters[2])
 				if ( not data ) then
 					-- Tomo prestado el show del modulo 404
-					util:borrow('404'):show()
+					borrow:class('404'):show()
 					return
 				end
 				self:show_form(data)
@@ -155,7 +155,7 @@ function MODULE:execute()
 				local data = model:get_MODULE(parameters[2])
 				if ( not data ) then
 					-- Tomo prestado el show del modulo 404
-					util:borrow('404'):show()
+					borrow:class('404'):show()
 					return
 				end
 				self:show_view(data)
@@ -166,7 +166,7 @@ function MODULE:execute()
 			return
 		else
 			-- Si no es new o edit, muestro el 404
-			util:borrow('404'):show()
+			borrow:class('404'):show()
 			return
 		end
 	end
