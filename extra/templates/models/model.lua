@@ -9,20 +9,16 @@ Copyright (c) 2020  Díaz  Víctor  aka  (Máster Vitronic)
 ]]--
 
 local MODULE =	class('MODULE')
-local sql =	nil
-local data = {}
-pagination = require('libraries.pagination')
-local date = require('vendor.date')
 
 function MODULE:get_MODULE()
 	db:open()
-	self.sql	= 'select * from users'
-	self.data	= {}
-	local result	= db:get_results(self.sql)
+	self.sql = 'select * from MODULE'
+	self.data = {}
+	local results = db:get_results(self.sql)
 	db:close()
-	for i,item in pairs(result) do
+	for i, result in pairs(results) do
 		table.insert(self.data,{
-			usuario = item.usuario
+			username = result.username
 		});
 	end
 	return self.data

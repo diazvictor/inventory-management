@@ -7,11 +7,12 @@
 Copyright (c) 2020  Díaz  Víctor  aka  (Máster Vitronic)
 <vitronic2@gmail.com>   <mastervitronic@vitronic.com.ve>
 ]]--
-local MODULE =	class('MODULE');
+
+local MODULE = class('MODULE');
 local theme = conf.theme.theme
 local parameters = router.parameters
 
----Configuracion general de la pagina
+--- Configuracion general de la pagina
 function MODULE:set_page()
 	view:add_contents({
 		js = {
@@ -29,10 +30,12 @@ function MODULE:set_page()
 	end
 end
 
----Configuracion de la lista
+--- Configuracion de la vista principal
 function MODULE:show(data)
-	view:add_content('title','Ventas, Gestion de facturación')
+	view:add_content('title','Inventory | Module')
+
 	self:set_page()
+
 	view:add_contents({
 		MODULE = data or {},
 		js = {
@@ -45,14 +48,12 @@ function MODULE:show(data)
 		'/SCOPE/page.html'
 	)
 	view:generate(page)
-	--common:print_r(parameters)
 end
 
----la vista del filtro
+--- Configuracion del filtro
 function MODULE:show_filter()
 	view:add_contents({
-		--billing = model:get_billing(),
-		fullname = 'Vitronic'
+		fullname = 'diazvictor'
 	})
 
 	local page = template.new(
@@ -61,14 +62,16 @@ function MODULE:show_filter()
 	view:generate(page)
 end
 
----Confiuracion del formulario
+--- Confiuracion del formulario
 function MODULE:show_form(data)
 	if (not data) then
-		view:add_content('title','Nueva Cuenta')
+		view:add_content('title','New')
 	else
-		view:add_content('title','Edición de cuenta')
+		view:add_content('title','Edit')
 	end
+
 	self:set_page()
+
 	view:add_contents({
 		MODULE = data or {},
 		js = {
@@ -83,14 +86,16 @@ function MODULE:show_form(data)
 	view:generate(page)
 end
 
----Confiuracion del formulario
+--- Confiuracion del formulario
 function MODULE:show_view(data)
-	view:add_content('title','Vista de cuenta')
+	view:add_content('title','View')
+
 	self:set_page()
+
 	view:add_contents({
 		MODULE = data or {},
 		js = {
-			('/js/themes/%s/SCOPE/MODULE/form.min.js'):format(theme)
+			('/js/themes/%s/SCOPE/MODULE/view.min.js'):format(theme)
 		}
 	})
 
@@ -131,28 +136,25 @@ function MODULE:execute()
 		if (parameters[1] == 'new') then
 			self:show_form()
 			return
-
 		elseif (parameters[1] == 'filter' and http:xmlhttprequest()) then
 			self:show_filter()
 			return
-
 		elseif (parameters[1] == 'edit' and parameters[2]) then
 			if (tonumber(parameters[2])) then
 				local data = model:get_MODULE(parameters[2])
 				if ( not data ) then
-					---Tomo prestado el show del modulo 404
+					-- Tomo prestado el show del modulo 404
 					util:borrow('404'):show()
 					return
 				end
 				self:show_form(data)
 				return
 			end
-
 		elseif (parameters[1] == 'view' and parameters[2]) then
 			if (tonumber(parameters[2])) then
 				local data = model:get_MODULE(parameters[2])
 				if ( not data ) then
-					---Tomo prestado el show del modulo 404
+					-- Tomo prestado el show del modulo 404
 					util:borrow('404'):show()
 					return
 				end
@@ -163,18 +165,14 @@ function MODULE:execute()
 			self:show(model:get_MODULE(tonumber(parameters[2])))
 			return
 		else
-			--Si no es new o edit, tons muestro el 404
+			-- Si no es new o edit, muestro el 404
 			util:borrow('404'):show()
 			return
 		end
-
 	end
 
-	--Por defecto se muestra la lista
+	-- Por defecto se muestra la vista principal
 	self:show(model:get_MODULE())
 end
 
 return MODULE
-
-
-

@@ -187,7 +187,11 @@ function save_module(_mod)
 	local views = path_views(_mod['name'],table.concat(_mod['path'], "/"))
 	for ext,dir in pairs(views) do
 		os.execute("mkdir -p " .. dir)
-		touch( ('%s%s.%s'):format(dir,_mod['name'],ext) )
+		if ext == 'js' then
+			touch( ('%smain.src.%s'):format(dir,ext) )
+		else
+			touch( ('%smain.%s'):format(dir,ext) )
+		end
 	end
 
 	-- Escribo el archivo de configuracion
