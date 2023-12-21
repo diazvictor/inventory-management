@@ -7,6 +7,7 @@
 Copyright (c) 2020  Díaz  Víctor  aka  (Máster Vitronic)
 <vitronic2@gmail.com>   <mastervitronic@vitronic.com.ve>
 ]]--
+
 local catalogue =	class('catalogue');
 local theme = conf.theme.theme
 local parameters = router.parameters
@@ -29,7 +30,7 @@ function catalogue:set_page()
 	end
 end
 
---- Configuracion de la lista
+--- Configuracion de la vista principal
 function catalogue:show(data)
 	view:add_content('title','Inventory | Catalogue')
 
@@ -155,11 +156,8 @@ function catalogue:execute()
 		end
 	end
 
-	-- Por defecto se muestra la lista
+	-- Por defecto se muestra la vista principal
 	self:show(model:get_catalogue())
 end
 
 return catalogue
-
-
-
