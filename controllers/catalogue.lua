@@ -11,7 +11,7 @@ local catalogue =	class('catalogue');
 local theme = conf.theme.theme
 local parameters = router.parameters
 
----Configuracion general de la pagina
+--- Configuracion general de la pagina
 function catalogue:set_page()
 	view:add_contents({
 		js = {
@@ -29,10 +29,12 @@ function catalogue:set_page()
 	end
 end
 
----Configuracion de la lista
+--- Configuracion de la lista
 function catalogue:show(data)
-	view:add_content('title','Ventas, Gestion de facturación')
+	view:add_content('title','Inventory | Catalogue')
+
 	self:set_page()
+
 	view:add_contents({
 		catalogue = data or {},
 		js = {
@@ -45,30 +47,26 @@ function catalogue:show(data)
 		'/private/page.html'
 	)
 	view:generate(page)
-	--common:print_r(parameters)
 end
 
----la vista del filtro
+--- Configuracion del filtro
 function catalogue:show_filter()
-	view:add_contents({
-		--billing = model:get_billing(),
-		fullname = 'Vitronic'
-	})
-
 	local page = template.new(
 		'/private/catalogue/filter.html'
 	)
 	view:generate(page)
 end
 
----Confiuracion del formulario
+--- Configuracion del formulario
 function catalogue:show_form(data)
 	if (not data) then
-		view:add_content('title','Nueva Cuenta')
+		view:add_content('title','New article')
 	else
-		view:add_content('title','Edición de cuenta')
+		view:add_content('title','Edit article')
 	end
+
 	self:set_page()
+
 	view:add_contents({
 		catalogue = data or {},
 		js = {
@@ -83,10 +81,12 @@ function catalogue:show_form(data)
 	view:generate(page)
 end
 
----Confiuracion del formulario
+--- Confiuracion de la vista
 function catalogue:show_view(data)
-	view:add_content('title','Vista de cuenta')
+	view:add_content('title','View article')
+
 	self:set_page()
+
 	view:add_contents({
 		catalogue = data or {},
 		js = {
@@ -95,7 +95,7 @@ function catalogue:show_view(data)
 	})
 
 	local page = template.new(
-		'/private/catalogue/view.html',
+		'/private/catalogue/form.html',
 		'/private/page.html'
 	)
 	view:generate(page)
@@ -131,46 +131,31 @@ function catalogue:execute()
 		if (parameters[1] == 'new') then
 			self:show_form()
 			return
-
 		elseif (parameters[1] == 'filter' and http:xmlhttprequest()) then
 			self:show_filter()
 			return
-
 		elseif (parameters[1] == 'edit' and parameters[2]) then
 			if (tonumber(parameters[2])) then
 				local data = model:get_catalogue(parameters[2])
 				if ( not data ) then
-					---Tomo prestado el show del modulo 404
+					--- Tomo prestado el show del modulo 404
 					util:borrow('404'):show()
 					return
 				end
 				self:show_form(data)
 				return
 			end
-
-		elseif (parameters[1] == 'view' and parameters[2]) then
-			if (tonumber(parameters[2])) then
-				local data = model:get_catalogue(parameters[2])
-				if ( not data ) then
-					---Tomo prestado el show del modulo 404
-					util:borrow('404'):show()
-					return
-				end
-				self:show_view(data)
-				return
-			end
 		elseif (parameters[1] == 'page') then
 			self:show(model:get_catalogue(tonumber(parameters[2])))
 			return
 		else
-			--Si no es new o edit, tons muestro el 404
+			-- Si no es new o edit, muestro el 404
 			util:borrow('404'):show()
 			return
 		end
-
 	end
 
-	--Por defecto se muestra la lista
+	-- Por defecto se muestra la lista
 	self:show(model:get_catalogue())
 end
 
